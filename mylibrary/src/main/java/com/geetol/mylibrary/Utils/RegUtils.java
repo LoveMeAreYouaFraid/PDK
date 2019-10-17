@@ -15,6 +15,7 @@ import com.gtdev5.geetolsdk.mylibrary.beans.UpdateBean;
 import com.gtdev5.geetolsdk.mylibrary.callback.BaseCallback;
 import com.gtdev5.geetolsdk.mylibrary.http.HttpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.PermissionUtils;
+import com.gtdev5.geetolsdk.mylibrary.util.SpUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.ToastUtils;
 import com.gtdev5.geetolsdk.mylibrary.util.Utils;
 
@@ -52,7 +53,7 @@ public class RegUtils {
 
     public void run(RegUtilsOk regUtilsOk) {
         this.regUtilsOk = regUtilsOk;
-        oneStart = TextUtils.isEmpty(PreferencesUtil.getString(KEY.ONE_START, ""));
+        oneStart = TextUtils.isEmpty(SpUtils.getInstance().getString(KEY.ONE_START, ""));
         initDatas();
     }
 
@@ -220,12 +221,8 @@ public class RegUtils {
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("温馨提示")
                     .setMessage("授予权限能使数据绑定手机哦，点击确定继续授权,取消可能会导致功能不正常")
-                    .setPositiveButton("确定", (dialogInterface, i) -> {
-                        checkPermissions();
-                    })
-                    .setNegativeButton("取消", (dialogInterface, i) -> {
-                        bindDevice();
-                    }).create().show();
+                    .setPositiveButton("确定", (dialogInterface, i) -> checkPermissions())
+                    .setNegativeButton("取消", (dialogInterface, i) -> bindDevice()).create().show();
         }
     }
 }
